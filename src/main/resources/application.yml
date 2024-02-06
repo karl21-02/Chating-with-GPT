@@ -1,0 +1,24 @@
+server:
+  port: 8010
+  servlet:
+    context-path: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  mvc:
+    view:
+      prefix: /templates/
+      suffix:
+  profiles:
+    include: API-KEY
+openai:
+  api-key: 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  // api key
+chatgpt:
+  api-key: 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  // api key

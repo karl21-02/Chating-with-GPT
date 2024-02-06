@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<div id="chat-container">
+    <div id="chat-log"></div>
+    <div id="user-input">
+        <input type="text" id="user-message-input" placeholder="메시지를 입력하세요..." />
+        <button id="send-button">전송</button>
+    </div>
+</div>
+<script>
+    // 대화 로그 요소와 메시지 입력 요소 가져오기
+    const chatLog = document.getElementById('chat-log');
+    const userMessageInput = document.getElementById('user-message-input');
+    const sendButton = document.getElementById('send-button');
+
+    // 사용자 메시지 전송 이벤트 리스너 등록
+    sendButton.addEventListener('click', () => {
+        const userMessage = userMessageInput.value;
+        sendMessage(userMessage);
+    });
+
+    // 메시지 전송 함수
+    function sendMessage(message) {
+        // 사용자 메시지를 대화 로그에 추가
+        appendMessage('사용자', message);
+
+        fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'model': 'gpt-3.5-turbo'
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(response => response.json()) // JSON 형식으로 응답 데이터 파싱
+        .then(data => {
+            const reply = data.reply; // 응답 데이터에서 'reply' 필드 추출
+            appendMessage('AI', reply); // 'reply' 값을 appendMessage 함수에 전달
+        })
+        .catch(error => {
+            console.error('에러:', error);
+        });
+
+        // 입력 필드 비우기
+        userMessageInput.value = '';
+    }
+
+    // 대화 로그에 메시지 추가 함수
+    function appendMessage(sender, message) {
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `<strong>${sender}: </strong>${message}`;
+        chatLog.appendChild(messageElement);
+    }
+</script>
+</body>
+</html>
