@@ -34,8 +34,8 @@ public class ChatController {
         // OpenAI API 호출 및 응답 처리 로직을 구현하세요.
         // 필요한 인증 정보, HTTP 요청 등을 사용하여 OpenAI API에 요청을 보내고 응답을 처리합니다.
         // 이 예시에서는 OpenAI API 호출 과정은 생략되었습니다.
-        String apiKey = "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"; // OpenAI API 키
-        String endpoint = "https://api.openai.com/v1/chat/completions"; // OpenAI API 엔드포인트
+        String apiKey = "API 키"; // OpenAI API 키
+        String endpoint = "END-POINT"; // OpenAI API 엔드포인트
 
         // OpenAI API 호출에 필요한 요청 헤더 설정
         HttpHeaders headers = new HttpHeaders();
@@ -63,14 +63,6 @@ public class ChatController {
             Object s1 = s.values().stream().collect(Collectors.toList());
             // List에서 두 번째 요소 가져오기 (LinkedHashMap)
             String result = ((LinkedHashMap) ((List<?>) s1).get(1)).get("content").toString();
-// LinkedHashMap에서 "key" 키에 해당하는 값 가져오기
-//            String value = map.get("content");
-//            StringBuilder resultBuilder = new StringBuilder();
-//            for (Map<String, String> choice : choicesList) {
-//                String text = choice.get("message");
-//                resultBuilder.append(text);
-//            }
-//            return resultBuilder.toString();
             return result;
         } else {
             throw new RuntimeException("Failed to call OpenAI API");

@@ -19,6 +19,6 @@ spring:
   profiles:
     include: API-KEY
 openai:
-  api-key: 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  // api key
+  api-key: NEED_TO_INPUT_API
 chatgpt:
-  api-key: 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  // api key
+  api-key: NEED_TP_INPUT_API
